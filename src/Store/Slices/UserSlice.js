@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {};
+const initialState = {
+  usersArray: [],
+};
 const reducers = {
-    checkUser : (state, action) => {
-
-    }
+  addUser: (state, action) => {},
 };
 
 const UserSlice = createSlice({
@@ -13,7 +13,5 @@ const UserSlice = createSlice({
   reducers,
 });
 
-
-
 export default UserSlice.reducer;
-export {checkUser} from UserSlice.actions
+export const { addUser } = UserSlice.actions;

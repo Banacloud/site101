@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [user, setUser] = useState();
-  axios.get("http://localhost:8100/auth/users").then((response) => {
-    setUser(response.data);
-  });
+  useEffect(() => {
+    axios.get("http://localhost:8100/auth/users").then((response) => {
+      setUser(response.data);
+    });
+  }, []);
   return (
     <div>
       <section>
