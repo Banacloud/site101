@@ -22,4 +22,14 @@ router.get("/users", (req, res) => {
   res.json(usersArray);
 });
 
+router.post("/register", async (req, res) => {
+  try {
+    let newUser = User(req.body);
+    console.log(req.body);
+    await newUser.save();
+  } catch (error) {
+    console.log(error + "this error is coming from the post route in /users");
+  }
+});
+
 module.exports = router;

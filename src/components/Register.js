@@ -1,7 +1,19 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const move = useNavigate();
+  const sendUserData = (data) => {
+    reset();
+    axios.post("/auth/register", data).then((res) => {
+      console.log(res.data);
+    });
+  };
+  const { register, handleSubmit, reset } = useForm();
   return (
     <div>
       <section className="bg-white">
@@ -40,7 +52,11 @@ const Register = () => {
                 Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
 
-              <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+              <form
+                onSubmit={handleSubmit(sendUserData)}
+                action="#"
+                className="mt-8 grid grid-cols-6 gap-6"
+              >
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="FirstName"
@@ -51,8 +67,7 @@ const Register = () => {
 
                   <input
                     type="text"
-                    name="firstName"
-                    // {...register("firstName", { required: true })}
+                    {...register("firstName", { required: true })}
                     id="FirstName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
@@ -68,8 +83,7 @@ const Register = () => {
 
                   <input
                     type="text"
-                    name="lastName"
-                    // {...register("lastName", { required: true })}
+                    {...register("lastName", { required: true })}
                     id="LastName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
@@ -86,8 +100,7 @@ const Register = () => {
 
                   <input
                     type="email"
-                    name="email"
-                    // {...register("email", { required: true })}
+                    {...register("email", { required: true })}
                     id="Email"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
@@ -104,9 +117,7 @@ const Register = () => {
 
                   <input
                     type="password"
-                    id="Password"
-                    name="password"
-                    // {...register("email", { required: true })}
+                    {...register("email", { required: true })}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
@@ -121,8 +132,6 @@ const Register = () => {
 
                   <input
                     type="password"
-                    id="PasswordConfirmation"
-                    name="password_confirmation"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
