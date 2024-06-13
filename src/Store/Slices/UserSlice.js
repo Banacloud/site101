@@ -2,9 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   usersArray: [],
+  newUser: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  },
 };
 const reducers = {
-  addUser: (state, action) => {},
+  registerNewUser: (state, action) => {},
 };
 
 const UserSlice = createSlice({
@@ -14,4 +20,4 @@ const UserSlice = createSlice({
 });
 
 export default UserSlice.reducer;
-export const { addUser } = UserSlice.actions;
+export const { registerNewUser } = UserSlice.actions;

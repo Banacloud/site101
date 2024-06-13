@@ -1,16 +1,7 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { addUser } from "../Store/Slices/UserSlice";
 
 const Register = () => {
-  const { register, handleSubmit, reset } = useForm();
-  const dispatch = useDispatch();
-  const sendRegistrationData = (data) => {
-    reset();
-    addUser(data);
-  };
   return (
     <div>
       <section className="bg-white">
@@ -49,11 +40,7 @@ const Register = () => {
                 Eligendi nam dolorum aliquam, quibusdam aperiam voluptatum.
               </p>
 
-              <form
-                action="#"
-                className="mt-8 grid grid-cols-6 gap-6"
-                onSubmit={handleSubmit(sendRegistrationData)}
-              >
+              <form action="#" className="mt-8 grid grid-cols-6 gap-6">
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="FirstName"
@@ -64,7 +51,8 @@ const Register = () => {
 
                   <input
                     type="text"
-                    {...register("firstName", { required: true })}
+                    name="firstName"
+                    // {...register("firstName", { required: true })}
                     id="FirstName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
@@ -80,7 +68,8 @@ const Register = () => {
 
                   <input
                     type="text"
-                    {...register("lastName", { required: true })}
+                    name="lastName"
+                    // {...register("lastName", { required: true })}
                     id="LastName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
@@ -97,7 +86,8 @@ const Register = () => {
 
                   <input
                     type="email"
-                    {...register("email", { required: true })}
+                    name="email"
+                    // {...register("email", { required: true })}
                     id="Email"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
@@ -116,6 +106,7 @@ const Register = () => {
                     type="password"
                     id="Password"
                     name="password"
+                    // {...register("email", { required: true })}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>

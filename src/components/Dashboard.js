@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:8100/auth/users").then((response) => {
       setUser(response.data);
@@ -77,7 +77,7 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      {user.map((using) => {
+      {/* {user.map((using) => {
         return (
           <div>
             <div id={using.id}></div>
@@ -85,7 +85,7 @@ const Dashboard = () => {
             <div>email id = {using.email}</div>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 };
