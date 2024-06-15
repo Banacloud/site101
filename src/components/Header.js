@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../Store/Slices/UserSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const userSliceData = useSelector((state) => {
+    return state.users;
+  });
+
   return (
     <div>
       <header class="bg-white">
@@ -87,42 +95,61 @@ const Header = () => {
             </nav>
 
             <div class="flex items-center gap-4">
-              <div class="sm:flex sm:gap-4">
-                <Link
-                  to="/SignIn"
-                  class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-                  href="#"
-                >
-                  Login
-                </Link>
-
-                <Link
-                  to="/Register"
-                  class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                  href="#"
-                >
-                  Register
-                </Link>
-              </div>
-
-              <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
-                <span class="sr-only">Toggle menu</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
+              {/* {useEffect(() => {
+                if (userSliceData.loggedIn) {
+                  return (
+                    <div class="sm:flex sm:gap-4">
+                      <Link
+                        to="/SignIn"
+                        class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+                        onClick={(data) => {
+                          dispatch(logout(data));
+                        }}
+                      >
+                        Logout
+                      </Link>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div class="sm:flex sm:gap-4">
+                      <Link
+                        to="/SignIn"
+                        class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+                        href="#"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        to="/Register"
+                        class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+                        href="#"
+                      >
+                        Register
+                      </Link>
+                    </div>
+                  );
+                }
+              })}
+              ; */}
             </div>
+            <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
+              <span class="sr-only">Toggle menu</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </header>

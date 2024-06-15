@@ -1,34 +1,30 @@
 const router = require("express").Router();
+const { useState } = require("react");
 const User = require("../Database/DatabaseModels/UserSchema");
 
-const usersArray = [
-  {
-    id: 1,
-    name: "abdullah",
-    email: "abdullah@abdullah.com",
-  },
-  {
-    id: 2,
-    name: "abrar",
-    email: "abrar@abrar.com",
-  },
-  {
-    id: 3,
-    name: "zunair",
-    email: "zunair@zunair.com",
-  },
-];
-router.get("/users", (req, res) => {
-  res.json(usersArray);
-});
-
-router.post("/register", async (req, res) => {
+router.post("/registeruser", async (req, res) => {
   try {
-    let newUser = User(req.body);
+    const newUser = User(req.body);
     console.log(req.body);
     await newUser.save();
+    res.send(newUser);
   } catch (error) {
-    console.log(error + "this error is coming from the post route in /users");
+    console.log(
+      error + "this error is coming from the post route in /registeruser"
+    );
+  }
+});
+
+router.post("/checklogin", async (req, res) => {
+  try {
+    let user = await User.findOne(req.body);
+    if (user) {
+      res.json({ success: true, user });
+    } else {
+      res.json({ success: false });
+    }
+  } catch (error) {
+    res.send("user fetching unsuccessful");
   }
 });
 

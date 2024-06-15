@@ -1,15 +1,31 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../Store/Slices/UserSlice";
 const SignIn = () => {
+  const userSliceData = useSelector((state) => {
+    return state.users;
+  });
+  console.log(userSliceData);
+
+  const dispatch = useDispatch();
+  const move = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const checkLoggedUser = (data) => {
+    axios.post("/auth/checklogin", data).then((res) => {
+      console.log(res.data.success);
+      if (res.data.success) {
+        dispatch(login(res.data));
+        move("/");
+      } else {
+        alert("Invalid Credentials. Please try again or Create an Account");
+      }
+    });
+  };
   return (
     <div>
-      {/*
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
-*/}
-
       <section className="relative flex flex-wrap lg:h-screen lg:items-center">
         <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24">
           <div className="mx-auto max-w-lg text-center">
@@ -23,7 +39,11 @@ const SignIn = () => {
             </p>
           </div>
 
-          <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+          <form
+            onSubmit={handleSubmit(checkLoggedUser)}
+            action="#"
+            className="mx-auto mb-0 mt-8 max-w-md space-y-4"
+          >
             <div>
               <label htmlFor="email" className="sr-only">
                 Email
@@ -31,6 +51,7 @@ const SignIn = () => {
 
               <div className="relative">
                 <input
+                  {...register("email", { required: true })}
                   type="email"
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter email"
@@ -63,6 +84,7 @@ const SignIn = () => {
               <div className="relative">
                 <input
                   type="password"
+                  {...register("password", { required: true })}
                   className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                   placeholder="Enter password"
                 />

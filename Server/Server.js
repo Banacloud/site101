@@ -3,10 +3,10 @@ const app = express();
 const PORT = process.env.PORT || 8100;
 const authRouter = require("./Routes/auth");
 require("./Database/Database");
-// const cors = require("cors");
+const cors = require("cors");
 
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 app.use("/auth", authRouter);
 
 app.listen(PORT, (req, res) => {

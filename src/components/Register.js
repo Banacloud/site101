@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,13 +7,24 @@ import { Link, useNavigate } from "react-router-dom";
 const Register = () => {
   const dispatch = useDispatch();
   const move = useNavigate();
+  const { register, handleSubmit, setValue, reset, watch } = useForm();
+
+  const passValue = watch("password", "");
+  const confirmPassValue = watch("confirmPassword", "");
+
   const sendUserData = (data) => {
-    reset();
-    axios.post("/auth/register", data).then((res) => {
-      console.log(res.data);
-    });
+    if (passValue === confirmPassValue) {
+      data.type = "customer";
+      axios.post("/auth/registeruser", data).then((res) => {
+        console.log(res.data);
+        reset();
+        move("/");
+      });
+    } else {
+      alert("Password and Confirm Password must be same");
+    }
   };
-  const { register, handleSubmit, reset } = useForm();
+
   return (
     <div>
       <section className="bg-white">
@@ -67,6 +78,7 @@ const Register = () => {
 
                   <input
                     type="text"
+                    required
                     {...register("firstName", { required: true })}
                     id="FirstName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
@@ -83,6 +95,7 @@ const Register = () => {
 
                   <input
                     type="text"
+                    required
                     {...register("lastName", { required: true })}
                     id="LastName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
@@ -100,6 +113,7 @@ const Register = () => {
 
                   <input
                     type="email"
+                    required
                     {...register("email", { required: true })}
                     id="Email"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
@@ -117,7 +131,11 @@ const Register = () => {
 
                   <input
                     type="password"
-                    {...register("email", { required: true })}
+                    value={passValue}
+                    onChange={(event) =>
+                      setValue("password", event.target.value)
+                    }
+                    {...register("password", { required: true })}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
@@ -132,6 +150,11 @@ const Register = () => {
 
                   <input
                     type="password"
+                    value={confirmPassValue}
+                    onChange={(event) =>
+                      setValue("confirmPassword", event.target.value)
+                    }
+                    {...register("confirmPassword", { required: true })}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>

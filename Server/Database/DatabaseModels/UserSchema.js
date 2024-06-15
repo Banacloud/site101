@@ -23,8 +23,8 @@ let userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-  }
-  // { timestamps: true }
+  },
+  { timestamps: true }
 );
 
 let User = new mongoose.model("User", userSchema);

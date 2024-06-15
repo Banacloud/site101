@@ -1,12 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [user, setUser] = useState([]);
+  const move = useNavigate();
+  const userSliceData = useSelector((state) => {
+    return state.users;
+  });
   useEffect(() => {
-    axios.get("http://localhost:8100/auth/users").then((response) => {
-      setUser(response.data);
-    });
+    if (userSliceData.loggedIn) {
+      move("/");
+    } else {
+      move("/SignIn");
+    }
   }, []);
   return (
     <div>
