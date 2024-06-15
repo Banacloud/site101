@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../Store/Slices/UserSlice";
 
 const Header = () => {
-  const dispatch = useDispatch();
-
-  const userSliceData = useSelector((state) => {
-    return state.users;
-  });
-
+  // const dispatch = useDispatch();
+  // const move = useNavigate();
+  // const userSliceData = useSelector((state) => {
+  //   return state.users;
+  // });
+  // console.log(userSliceData);
+  // console.log(userSliceData.loggedIn);
   return (
     <div>
       <header class="bg-white">
@@ -98,40 +99,41 @@ const Header = () => {
               {/* {useEffect(() => {
                 if (userSliceData.loggedIn) {
                   return (
-                    <div class="sm:flex sm:gap-4">
-                      <Link
-                        to="/SignIn"
-                        class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+                    <div className="sm:flex sm:gap-4">
+                      <button
+                        className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
                         onClick={(data) => {
                           dispatch(logout(data));
+                          move("/SignIn");
                         }}
                       >
                         Logout
-                      </Link>
+                      </button>
                     </div>
                   );
                 } else {
                   return (
-                    <div class="sm:flex sm:gap-4">
-                      <Link
-                        to="/SignIn"
+                    <div className="sm:flex sm:gap-4">
+                      <button
+                        onClick={() => {
+                          move("/SignIn");
+                        }}
                         class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-                        href="#"
                       >
                         Login
-                      </Link>
-                      <Link
-                        to="/Register"
+                      </button>
+                      <button
+                        onClick={() => {
+                          move("/Register");
+                        }}
                         class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                        href="#"
                       >
                         Register
-                      </Link>
+                      </button>
                     </div>
                   );
                 }
-              })}
-              ; */}
+              }, [])} */}
             </div>
             <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
               <span class="sr-only">Toggle menu</span>
@@ -158,3 +160,38 @@ const Header = () => {
 };
 
 export default Header;
+
+// {useEffect(() => {
+//   if (userSliceData.loggedIn) {
+//     return (
+//       <div class="sm:flex sm:gap-4">
+//         <Link
+//           to="/SignIn"
+//           class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+//           onClick={(data) => {
+//             dispatch(logout(data));
+//           }}
+//         >
+//           Logout
+//         </Link>
+//       </div>
+//     );
+//   } else {
+//     return (
+//       <div class="sm:flex sm:gap-4">
+//         <Link
+//           to="/SignIn"
+//           class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+//         >
+//           Login
+//         </Link>
+//         <Link
+//           to="/Register"
+//           class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+//         >
+//           Register
+//         </Link>
+//       </div>
+//     );
+//   }
+// })}

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  usersArray: [],
   loggedIn: null,
 };
 const reducers = {
