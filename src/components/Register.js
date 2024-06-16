@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -10,15 +9,32 @@ const Register = () => {
 
   const passValue = watch("password", "");
   const confirmPassValue = watch("confirmPassword", "");
-
-  const sendUserData = (data) => {
+  const sendUserData = async (data) => {
     if (passValue === confirmPassValue) {
-      data.type = "customer";
-      axios.post("/auth/registeruser", data).then((res) => {
-        console.log(res.data);
-        reset();
-        move("/");
-      });
+      const formData = new FormData();
+      formData.append("type", "customer");
+      formData.append("data", JSON.stringify(data)); // append form data
+      formData.append("file", data.file[0]); // append image file
+
+      try {
+        await axios.post(
+          "/auth/registeruser",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }.then((res) => {
+            console.log(res.data);
+          })
+        );
+        console.log("File uploaded successfully");
+        // reset();
+        // move("/");
+      } catch (error) {
+        console.log(error);
+        alert("Error uploading file");
+      }
     } else {
       alert("Password and Confirm Password must be same");
     }
@@ -63,8 +79,8 @@ const Register = () => {
               </p>
 
               <form
+                enctype="multipart/form-data"
                 onSubmit={handleSubmit(sendUserData)}
-                action="#"
                 className="mt-8 grid grid-cols-6 gap-6"
               >
                 <div className="col-span-6 sm:col-span-3">
@@ -155,6 +171,22 @@ const Register = () => {
                     }
                     {...register("confirmPassword", { required: true })}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
+                  />
+                </div>
+
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="Password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {" "}
+                    Upload Image{" "}
+                  </label>
+
+                  <input
+                    type="file"
+                    {...register("ProfilePicture", { required: true })}
+                    className="mt-1 w-full border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
 

@@ -4,13 +4,51 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../Store/Slices/UserSlice";
 
 const Header = () => {
-  // const dispatch = useDispatch();
-  // const move = useNavigate();
-  // const userSliceData = useSelector((state) => {
-  //   return state.users;
-  // });
-  // console.log(userSliceData);
-  // console.log(userSliceData.loggedIn);
+  const dispatch = useDispatch();
+  const move = useNavigate();
+  const userSliceData = useSelector((state) => {
+    return state.users;
+  });
+  const logoutButtonFunction = () => {
+    if (userSliceData.loggedIn) {
+      return (
+        <div className="sm:flex sm:gap-4">
+          <button
+            className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+            onClick={(data) => {
+              dispatch(logout(data));
+              move("/SignIn");
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="sm:flex sm:gap-4">
+          <button
+            onClick={() => {
+              move("/SignIn");
+            }}
+            class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => {
+              move("/Register");
+            }}
+            class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
+          >
+            Register
+          </button>
+        </div>
+      );
+    }
+  };
+  console.log(userSliceData);
+  console.log(userSliceData.loggedIn);
   return (
     <div>
       <header class="bg-white">
@@ -95,46 +133,7 @@ const Header = () => {
               </ul>
             </nav>
 
-            <div class="flex items-center gap-4">
-              {/* {useEffect(() => {
-                if (userSliceData.loggedIn) {
-                  return (
-                    <div className="sm:flex sm:gap-4">
-                      <button
-                        className="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                        onClick={(data) => {
-                          dispatch(logout(data));
-                          move("/SignIn");
-                        }}
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div className="sm:flex sm:gap-4">
-                      <button
-                        onClick={() => {
-                          move("/SignIn");
-                        }}
-                        class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
-                      >
-                        Login
-                      </button>
-                      <button
-                        onClick={() => {
-                          move("/Register");
-                        }}
-                        class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block"
-                      >
-                        Register
-                      </button>
-                    </div>
-                  );
-                }
-              }, [])} */}
-            </div>
+            <div class="flex items-center gap-4">{logoutButtonFunction()}</div>
             <button class="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
               <span class="sr-only">Toggle menu</span>
               <svg

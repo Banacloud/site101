@@ -14,7 +14,7 @@ const SignIn = () => {
   const move = useNavigate();
   const { register, handleSubmit } = useForm();
   const checkLoggedUser = (data) => {
-    axios.post("/auth/checklogin", data).then((res) => {
+    axios.post("http://localhost:8100/auth/checklogin", data).then((res) => {
       console.log(res.data.success);
       if (res.data.success) {
         dispatch(login(res.data));

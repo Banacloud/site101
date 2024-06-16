@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { useState } = require("react");
 const User = require("../Database/DatabaseModels/UserSchema");
+const { upload } = require("@testing-library/user-event/dist/upload");
 
 router.post("/registeruser", async (req, res) => {
   try {
@@ -27,5 +28,12 @@ router.post("/checklogin", async (req, res) => {
     res.send("user fetching unsuccessful");
   }
 });
+
+router.post("/upload"),
+  upload.single("file"),
+  (req, res) => {
+    console.log(req.file);
+    res.send("file uploaded successfully");
+  };
 
 module.exports = router;
