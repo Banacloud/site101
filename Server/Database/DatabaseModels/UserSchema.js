@@ -26,6 +26,7 @@ let userSchema = mongoose.Schema(
     },
     profilePic: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }

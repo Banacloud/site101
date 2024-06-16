@@ -13,33 +13,19 @@ const Register = () => {
     if (passValue === confirmPassValue) {
       const formData = new FormData();
       formData.append("type", "customer");
-      formData.append("data", JSON.stringify(data)); // append form data
-      formData.append("file", data.file[0]); // append image file
-
-      try {
-        await axios.post(
-          "/auth/registeruser",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }.then((res) => {
-            console.log(res.data);
-          })
-        );
-        console.log("File uploaded successfully");
-        // reset();
-        // move("/");
-      } catch (error) {
-        console.log(error);
-        alert("Error uploading file");
-      }
-    } else {
-      alert("Password and Confirm Password must be same");
+      formData.append("firstName", data.firstName);
+      formData.append("lastName", data.lastName);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("profiePic", data.profilePic[0]);
+      await axios.post("/registeruser", formData).then((res) => {
+        console.log(res.data);
+      });
+      console.log("File uploaded successfully");
+      reset();
+      move("/");
     }
   };
-
   return (
     <div>
       <section className="bg-white">
@@ -185,7 +171,7 @@ const Register = () => {
 
                   <input
                     type="file"
-                    {...register("ProfilePicture", { required: true })}
+                    {...register("profilePic", { required: true })}
                     className="mt-1 w-full border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
