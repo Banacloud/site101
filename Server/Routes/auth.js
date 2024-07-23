@@ -1,20 +1,20 @@
 const router = require("express").Router();
 const { useState } = require("react");
 const User = require("../Database/DatabaseModels/UserSchema");
-const multer = require("multer");
+// const multer = require("multer");
 
 // multer code starts here
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "/tmp/my-uploads");
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./Server/images");
+//   },
+//   filename: function (req, file, cb) {
+//     // const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     cb(null, file.originalName);
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 // routing starts here
 
@@ -41,11 +41,13 @@ router.post("/checklogin", async (req, res) => {
 });
 
 // route to uplaod and save images
-
-router.post("/registeruser", upload.single("profilePic"), async (req, res) => {
+// upload.single("profilePic")
+router.post("/registeruser", async (req, res) => {
   let newUser = req.body;
   newUser.type = "customer";
-  newUser.profilePic = "/" + req.file.originalname;
+  console.log(newUser);
+  // newUser.profilePic = "/" + req.file.originalname;
+
   let user = User(newUser);
   await user.save();
   res.send(user);

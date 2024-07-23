@@ -11,14 +11,16 @@ const Register = () => {
   const confirmPassValue = watch("confirmPassword", "");
   const sendUserData = async (data) => {
     if (passValue === confirmPassValue) {
-      const formData = new FormData();
-      formData.append("type", "customer");
-      formData.append("firstName", data.firstName);
-      formData.append("lastName", data.lastName);
-      formData.append("email", data.email);
-      formData.append("password", data.password);
-      formData.append("profiePic", data.profilePic[0]);
-      await axios.post("/registeruser", formData).then((res) => {
+      // let formData = new FormData();
+      // console.log(data);
+      // formData.append("type", "customer");
+      // formData.append("firstName", data.firstName);
+      // formData.append("lastName", data.lastName);
+      // formData.append("email", data.email);
+      // formData.append("password", data.password);
+      // formData.append("profiePic", data.profilePic[0]);
+      // console.log(formData);
+      await axios.post("/auth/registeruser", data).then((res) => {
         console.log(res.data);
       });
       console.log("File uploaded successfully");
@@ -65,7 +67,6 @@ const Register = () => {
               </p>
 
               <form
-                enctype="multipart/form-data"
                 onSubmit={handleSubmit(sendUserData)}
                 className="mt-8 grid grid-cols-6 gap-6"
               >
@@ -81,7 +82,6 @@ const Register = () => {
                     type="text"
                     required
                     {...register("firstName", { required: true })}
-                    id="FirstName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
@@ -98,7 +98,6 @@ const Register = () => {
                     type="text"
                     required
                     {...register("lastName", { required: true })}
-                    id="LastName"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
@@ -116,7 +115,6 @@ const Register = () => {
                     type="email"
                     required
                     {...register("email", { required: true })}
-                    id="Email"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
                 </div>
@@ -160,7 +158,7 @@ const Register = () => {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-3">
+                {/* <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="Password"
                     className="block text-sm font-medium text-gray-700"
@@ -174,14 +172,12 @@ const Register = () => {
                     {...register("profilePic", { required: true })}
                     className="mt-1 w-full border-gray-200 bg-white text-xl text-gray-700 shadow-sm"
                   />
-                </div>
+                </div> */}
 
                 <div className="col-span-6">
                   <label htmlFor="MarketingAccept" className="flex gap-4">
                     <input
                       type="checkbox"
-                      id="MarketingAccept"
-                      name="marketing_accept"
                       className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
                     />
 

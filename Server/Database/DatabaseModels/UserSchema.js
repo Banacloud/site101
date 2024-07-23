@@ -5,29 +5,29 @@ let userSchema = mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: true,
+      // required: true,
     },
     lastName: {
       type: String,
-      required: true,
+      // required: true,
     },
     email: {
       type: String,
-      required: true,
+      // required: true,
     },
 
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     type: {
       type: String,
-      required: true,
+      // required: true,
     },
-    profilePic: {
-      type: String,
-      required: true,
-    },
+    // profilePic: {
+    //   type: String,
+    //   // required: true,
+    // },
   },
   { timestamps: true }
 );
